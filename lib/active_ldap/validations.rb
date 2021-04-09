@@ -83,9 +83,9 @@ module ActiveLdap
     def validate_duplicated_dn_rename
       _dn_attribute = dn_attribute_with_fallback
       original_dn_value = @ldap_data[_dn_attribute]
-      original_dn_value = ( original_dn_value.is_a? Array ) ? original_dn_value.collect{|t| t.downcase} : original_dn_value.downcase
+      original_dn_value = ( original_dn_value.is_a? Array ) ? original_dn_value.collect{|t| I18n.transliterate(t).downcase} : I18n.transliterate(original_dn_value).downcase
       current_dn_value = @data[_dn_attribute]
-      current_dn_value = ( current_dn_value.is_a? Array ) ? current_dn_value.collect{|t| t.downcase} : current_dn_value.downcase
+      current_dn_value = ( current_dn_value.is_a? Array ) ? current_dn_value.collect{|t| I18n.transliterate(t).downcase} : I18n.transliterate(current_dn_value).downcase
       return if original_dn_value == current_dn_value
       return if original_dn_value == [current_dn_value]
 
